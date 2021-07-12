@@ -11,9 +11,18 @@ class Server {
         this.app = express();
         this.port = process.env.PORT;
 
+        // Paths
+
+        this.path = {
+            auth    : '/api/auth',
+            usuarios: '/api/usuarios',
+        }
+
         this.conetarDB();
 
         this.middlewares();
+
+        this.routes();
 
     }
 
@@ -29,6 +38,15 @@ class Server {
     middlewares() {
         // CORS 
         this.app.use(cors());
+
+        // Parsear Json
+        this.app.use(express.json());
+    }
+
+
+    routes() {
+        this.app.use( this.path.auth, require('../routes/auth.route'))
+        this.app.use( this.path.usuarios, require('../routes/user.route'))
     }
 
     listen() {
