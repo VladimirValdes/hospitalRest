@@ -15,12 +15,20 @@ const {
     usuariosGet,
     usuariosPost,
     usuariosPut,
-    usuariosDelete
+    usuariosDelete,
+    usuarioGetById
 } = require('../controllers/user.controller');
 
 const route = Router();
 
-route.get('/', validarJWT, usuariosGet)
+route.get('/', validarJWT, usuariosGet);
+
+route.get('/:id',[
+    validarJWT,
+    check('id', 'El id no es valido').isMongoId(),
+    check('id').custom( usuarioExiste ),
+    validarCampos
+], usuarioGetById);
 
 route.post('/',[
     validarJWT,

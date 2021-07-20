@@ -14,8 +14,12 @@ class Server {
         // Paths
 
         this.path = {
-            auth    : '/api/auth',
-            usuarios: '/api/usuarios',
+            auth      : '/api/auth',
+            hospitales: '/api/hospitales',
+            medicos   : '/api/medicos',
+            search    : '/api/search',
+            usuarios  : '/api/usuarios',
+            uploads   : '/api/uploads'
         }
 
         this.conetarDB();
@@ -45,8 +49,13 @@ class Server {
 
 
     routes() {
-        this.app.use( this.path.auth, require('../routes/auth.route'))
-        this.app.use( this.path.usuarios, require('../routes/user.route'))
+        this.app.use( this.path.auth, require('../routes/auth.route'));
+        this.app.use( this.path.hospitales, require('../routes/hospitals.route'));
+        this.app.use( this.path.medicos, require('../routes/medicos.route'));
+        this.app.use( this.path.search, require('../routes/search.route'));
+        this.app.use( this.path.usuarios, require('../routes/user.route'));
+        this.app.use( this.path.uploads, require('../routes/uploads.route'));
+        
     }
 
     listen() {

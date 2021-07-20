@@ -1,5 +1,5 @@
 
-const { Usuario } = require('../models');
+const { Usuario, Hospitales, Medicos } = require('../models');
 
 const emailExiste = async( correo = '') => {
     
@@ -21,6 +21,24 @@ const usuarioExiste = async( id = '' ) => {
 
 }
 
+const hospitalExiste = async( id = '') => {
+    const hospExiste = await Hospitales.findById(id);
+
+    if ( !hospExiste ) {
+        throw new Error(`El hospital ${ hospExiste } no existe `);
+        
+    }
+}
+
+
+const medicoExiste = async( id = '') => {
+    const medicExiste = await Medicos.findById(id);
+
+    if ( !medicExiste ) {
+        throw new Error(`El hospital ${ medicExiste } no existe `);
+        
+    }
+}
 
 
 
@@ -28,5 +46,7 @@ const usuarioExiste = async( id = '' ) => {
 
 module.exports = {
     emailExiste,
-    usuarioExiste
+    usuarioExiste,
+    hospitalExiste,
+    medicoExiste
 }

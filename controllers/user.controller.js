@@ -26,6 +26,25 @@ const usuariosGet = async( req, res = response ) => {
     })
 }
 
+const usuarioGetById = async( req, res = response ) => {
+    
+    const { id } = req.params;
+
+    const usuario = await Usuario.findById(id);
+
+    
+    if ( !usuario.estado ) {
+        res.status(400).json({
+            msg: `El usuario no esta activo - estado false`
+        })
+    }
+
+    res.json({
+        usuario
+    })
+
+}
+
 
 const usuariosPost = async( req, res = response ) => {
 
@@ -84,5 +103,6 @@ module.exports = {
     usuariosPost,
     usuariosGet,
     usuariosPut,
-    usuariosDelete
+    usuariosDelete,
+    usuarioGetById
 }
