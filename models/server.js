@@ -45,6 +45,9 @@ class Server {
 
         // Parsear Json
         this.app.use(express.json());
+
+        // directorio Publico
+        this.app.use( express.static('public'));
     }
 
 
