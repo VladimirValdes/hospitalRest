@@ -9,7 +9,7 @@ const { check } = require('express-validator');
 const { Router } = require('express');
 
 
-const { login, googleSignin } = require('../controllers/auth.controller');
+const { login, googleSignin, renewToken } = require('../controllers/auth.controller');
 
 const { validarCampos, validarJWT } = require('../middlewares/index');
 
@@ -25,5 +25,10 @@ route.post('/google', [
     check('id_token', 'El id token es necesario').not().isEmpty(),
     validarCampos
 ], googleSignin)
+
+route.get('/renew', [
+    validarJWT,
+    validarCampos
+], renewToken)
 
 module.exports = route;
