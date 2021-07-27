@@ -31,7 +31,6 @@ route.get('/:id',[
 ], usuarioGetById);
 
 route.post('/',[
-    validarJWT,
     check('nombre', 'El nombre es obligatorio').not().isEmpty(),
     check('password', 'El password debe ser mas de 6 letras').isLength({ min: 6 }),
     check('correo', 'El correo no es valido').isEmail(),

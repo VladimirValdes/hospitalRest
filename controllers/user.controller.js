@@ -1,6 +1,7 @@
 const bycryptjs = require('bcryptjs');
 const { response } = require('express');
 
+const { generarJWT } = require('../helpers/index');
 const { Usuario } = require('../models/index');
 
 
@@ -59,8 +60,12 @@ const usuariosPost = async( req, res = response ) => {
     // Save en la DB
     await usuario.save();
 
+    // Generar  el JWT
+    const token = await generarJWT( usuario.id );
+
      res.json({
         usuario,
+        token
      })
 }
 
