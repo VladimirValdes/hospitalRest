@@ -81,6 +81,12 @@ const usuariosPut = async( req, res= response ) => {
     //     resto.password = bycryptjs.hashSync( password, salt );
     // }
 
+    // Cambiar correo  si no 
+
+    // if ( ! usuario.google) {
+        
+    // }
+
     const usuario = await Usuario.findByIdAndUpdate(id, resto, { new: true });
 
     res.json({

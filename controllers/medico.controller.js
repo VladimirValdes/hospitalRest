@@ -32,7 +32,9 @@ const medicoGetById = async( req, res = response ) => {
 
     const { id } = req.params;
 
-    const medico = await Medicos.findById( id );
+    const medico = await Medicos.findById( id )
+                                .populate('usuario', 'nombre')
+                                .populate('hospital', 'nombre');
 
     
     if ( !medico.estado ) {
