@@ -132,7 +132,7 @@ const renewToken = async( req, res = response ) => {
      res.json({
         token,
         user,
-        menu: getMenuFrontEnd( usuario.rol )
+        menu: getMenuFrontEnd( user.rol )
         
      })
 }
