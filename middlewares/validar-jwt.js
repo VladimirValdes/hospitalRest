@@ -9,9 +9,6 @@ const validarJWT = async ( req = request, res = response, next ) => {
 
     const token = req.header('x-token');
 
-   
-
-
     if ( !token ) {
         return res.status(400).json({
             msg: 'No hay token en la peticion'
@@ -61,6 +58,41 @@ const validarJWT = async ( req = request, res = response, next ) => {
 
 }
 
+const validarRole = async( req = request, res = response, next ) => {
+
+    const { _id } = req.usuario;
+
+    const usuario = await Usuario.findById( _id );
+
+    if ( !usuario ) {
+        return res.status(400).json({
+            
+            msg: 'Token no valido - El usuario no existe en la DB'
+
+        });
+    }
+
+    // Verificar si el uid tiene estado en true
+
+    if ( !usuario.estado ) {
+        return res.status(400).json({
+            
+            msg: 'Token no valido - El usuario no esta activo'
+
+        });
+    }
+
+    if ( usuario.rol !== 'ADMIN_ROLE') {
+        return res.status(403).json({
+            msg: 'Lo sentimos no puede realizar esta operacion'
+        });
+    } 
+
+    next();
+
+}
+
 module.exports = {
-    validarJWT
+    validarJWT,
+    validarRole
 }

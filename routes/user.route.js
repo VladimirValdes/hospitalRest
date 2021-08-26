@@ -9,7 +9,7 @@ const { Router } = require('express');
 // Validacion contra la DB
 const { emailExiste, usuarioExiste } = require('../helpers/db-validators');
 
-const { validarCampos, validarJWT } = require('../middlewares/index.js');
+const { validarCampos, validarJWT, validarRole } = require('../middlewares/index.js');
 
 const {
     usuariosGet,
@@ -41,6 +41,7 @@ route.post('/',[
 
 route.put('/:id', [
     validarJWT,
+    validarRole,
     check('id', 'El id no es valido').isMongoId(),
     check('id').custom( usuarioExiste ),
     check('nombre', 'El nombre es obligatorio').not().isEmpty(),
@@ -50,6 +51,7 @@ route.put('/:id', [
 
 route.delete('/:id', [
     validarJWT,
+    validarRole,
     check('id', 'El id no es valido').isMongoId(),
     check('id').custom( usuarioExiste ),
     validarCampos
